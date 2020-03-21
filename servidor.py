@@ -1,7 +1,7 @@
 import socket
-from validaMsg import ValidaMsg
-from classeIp import ClasseIp
-from tipoIP import TipoIp
+from Classes.validaMsg import ValidaMsg
+from Classes.classeIp import ClasseIp
+from Classes.tipoIP import TipoIp
 
 host = ''
 porta = 5001
