@@ -2,22 +2,26 @@ import socket
 from Classes.validaMsg import ValidaMsg
 from Classes.classeIp import ClasseIp
 from Classes.tipoIP import TipoIp
+import threading
 
-host = ''
-porta = 5001
-servidor = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-servidor.bind((host, porta))
-servidor.listen(5)
+def servidor():
+    host = ''
+    port = 5001
+    servidor = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    orig = (host, port)
+    servidor.bind(orig)
+    servidor.listen(1)
+    servidor.listen(5)
 
 
-while True:
-    conexaoCliente, ipCliente = servidor.accept()
-    print('Conectado por: ', ipCliente)
     while True:
+        conexaoCliente, ipCliente = servidor.accept()
+        print('Conectado por: ', ipCliente)
+
         #Recebendo msg
         msg = conexaoCliente.recv(1024)
         msg = msg.decode()
-        if msg == 'sair': 
+        if msg == 'sair':
             print('Conexão fechada por: ', ipCliente)
             conexaoCliente.close()
             break
@@ -49,3 +53,6 @@ while True:
                 respostaServidor = 'ERRO! Verifique todos os campos digitados.'
             ipSeparado.getMsgSeparada().clear() # Limpando a lista.
         conexaoCliente.send(respostaServidor.encode()) # Enviando resposta do servidor.
+
+x = threading.Thread(target=servidor,args=())
+x.start()

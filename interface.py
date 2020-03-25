@@ -1,14 +1,23 @@
 from tkinter import *
-
+import servidor
+import json
+import cliente
 
 def click():
     entered_text = textentry.get()
     saida.delete(0.0,END)
     print(entered_text)
+    iarquivo = {}
+    iarquivo['ip'] = entered_text
+    with open('iarquivo.json', 'w', encoding='utf-8') as f:
+        json.dump(iarquivo, f)
 
-    definicao = "Tente novamente" # Reposta do servidor.
+
+    cl = cliente.cliente()
+    tipo = cl.tipo()
+    definicao = tipo
+    print(definicao)
     saida.insert(END,definicao) # saida na tela // Reposta do servidor tem que vir aqui
-
 
 #main
 window = Tk()
