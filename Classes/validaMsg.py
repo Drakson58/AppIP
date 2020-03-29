@@ -47,9 +47,3 @@ class ValidaMsg:
             if self._msgSeparada[i]/2 > 127.5:
                 return 'CamposInvalidos'
         return self._msgSeparada
-
-msg = ValidaMsg('127.0.0.1')
-print(msg.validaCampos())
-print(msg.validaPontos())
-msg = msg.validaCampos()
-print(msg[0])
